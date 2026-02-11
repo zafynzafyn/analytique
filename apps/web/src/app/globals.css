@@ -1,0 +1,324 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light theme - using #79ACD2 (light blue) and #002957 (dark navy) */
+    --background: 0 0% 100%;
+    --foreground: 212 100% 17%;
+    --card: 0 0% 100%;
+    --card-foreground: 212 100% 17%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 212 100% 17%;
+    --primary: 212 100% 17%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 206 50% 92%;
+    --secondary-foreground: 212 100% 17%;
+    --muted: 206 30% 95%;
+    --muted-foreground: 212 50% 40%;
+    --accent: 206 50% 65%;
+    --accent-foreground: 212 100% 17%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 206 30% 85%;
+    --input: 206 30% 85%;
+    --ring: 206 50% 65%;
+    --radius: 0.625rem;
+
+    /* Custom brand colors */
+    --brand-light: 206 50% 65%;
+    --brand-dark: 212 100% 17%;
+  }
+
+  .dark {
+    /* Dark theme - inverted with #002957 as background */
+    --background: 212 100% 8%;
+    --foreground: 206 30% 95%;
+    --card: 212 100% 12%;
+    --card-foreground: 206 30% 95%;
+    --popover: 212 100% 12%;
+    --popover-foreground: 206 30% 95%;
+    --primary: 206 50% 65%;
+    --primary-foreground: 212 100% 10%;
+    --secondary: 212 60% 20%;
+    --secondary-foreground: 206 30% 95%;
+    --muted: 212 60% 18%;
+    --muted-foreground: 206 30% 70%;
+    --accent: 206 50% 65%;
+    --accent-foreground: 212 100% 10%;
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 212 60% 25%;
+    --input: 212 60% 25%;
+    --ring: 206 50% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+
+  /* Smooth transitions for theme switching */
+  html {
+    @apply scroll-smooth;
+  }
+}
+
+@layer utilities {
+  /* Custom animations */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out forwards;
+  }
+
+  .animate-fade-in-down {
+    animation: fadeInDown 0.4s ease-out forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.4s ease-out forwards;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.4s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+  }
+
+  .animate-bounce-in {
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  }
+
+  /* Stagger animation delays */
+  .animation-delay-100 { animation-delay: 100ms; }
+  .animation-delay-200 { animation-delay: 200ms; }
+  .animation-delay-300 { animation-delay: 300ms; }
+  .animation-delay-400 { animation-delay: 400ms; }
+  .animation-delay-500 { animation-delay: 500ms; }
+
+  /* Gradient backgrounds */
+  .bg-gradient-brand {
+    background: linear-gradient(135deg, hsl(var(--brand-light)) 0%, hsl(var(--brand-dark)) 100%);
+  }
+
+  .bg-gradient-brand-light {
+    background: linear-gradient(135deg, hsl(var(--brand-light) / 0.1) 0%, hsl(var(--brand-dark) / 0.1) 100%);
+  }
+
+  /* Glow effects */
+  .glow {
+    box-shadow: 0 0 20px hsl(var(--brand-light) / 0.3);
+  }
+
+  .glow-sm {
+    box-shadow: 0 0 10px hsl(var(--brand-light) / 0.2);
+  }
+}
+
+@layer components {
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .card-hover:hover {
+    @apply -translate-y-1 shadow-lg;
+    box-shadow: 0 10px 40px -10px hsl(var(--brand-light) / 0.3);
+  }
+
+  /* Button transitions */
+  .btn-transition {
+    @apply transition-all duration-200 ease-out active:scale-95;
+  }
+
+  /* Interactive list items */
+  .list-item-interactive {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  .list-item-interactive:hover {
+    @apply bg-accent/50 translate-x-1;
+  }
+
+  /* Smooth border animations */
+  .border-animated {
+    @apply relative overflow-hidden;
+  }
+
+  .border-animated::after {
+    content: '';
+    @apply absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-brand transition-all duration-300;
+  }
+
+  .border-animated:hover::after {
+    @apply w-full;
+  }
+
+  /* Shimmer loading effect */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 0%,
+      hsl(var(--muted-foreground) / 0.1) 50%,
+      hsl(var(--muted)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* Pulse ring animation */
+  .pulse-ring {
+    @apply relative;
+  }
+
+  .pulse-ring::before {
+    content: '';
+    @apply absolute inset-0 rounded-full;
+    animation: pulseRing 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    background: hsl(var(--brand-light) / 0.4);
+  }
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounceIn {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--brand-light) / 0.5);
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--brand-light) / 0.7);
+}
+
+/* Selection styling */
+::selection {
+  background: hsl(var(--brand-light) / 0.3);
+  color: hsl(var(--foreground));
+}
