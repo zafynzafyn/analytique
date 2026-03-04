@@ -7,7 +7,8 @@ An AI-powered analytics dashboard that lets you query your Supabase database usi
 - **Natural Language Queries** - Ask questions like "What were our top 10 products last month?" and get SQL generated automatically
 - **Data Visualization** - Results are displayed in charts (line, bar, pie, scatter) or tables based on the data
 - **Key Insights** - AI extracts and highlights the most important findings from your data
-- **Table Permissions** - Control which tables the AI can access for security
+- **In-App Database Configuration** - Configure your Supabase credentials directly in the app with connection testing
+- **Table Security** - Role-based access control for tables and columns the AI can access
 - **Chat History** - Save and revisit previous analysis sessions
 - **Dark Mode** - Full light/dark theme support
 
@@ -28,6 +29,16 @@ analytique/
 │   ├── agent/            # AI analyst agent (Claude + SQL tools)
 │   └── schemas/          # Schema annotations
 ```
+
+## Pages
+
+| Page | Description |
+|------|-------------|
+| `/` | Home page with quick links to chat and schema explorer |
+| `/chat` | AI chat interface for natural language queries |
+| `/schema` | Database schema explorer with table and column details |
+| `/connection` | Supabase database connection settings |
+| `/settings` | Table security and access control configuration |
 
 ## Getting Started
 
@@ -51,30 +62,50 @@ analytique/
    pnpm install
    ```
 
-3. Copy the environment file and add your keys:
+3. Copy the environment file and add your Anthropic API key:
    ```bash
    cp .env.example .env
    ```
 
-4. Update `.env` with your credentials:
+4. Update `.env` with your Anthropic API key:
    ```
-   SUPABASE_URL=https://your-project.supabase.co
-   SUPABASE_ANON_KEY=your-anon-key
-   SUPABASE_SERVICE_KEY=your-service-key
    ANTHROPIC_API_KEY=your-api-key
    ```
 
-5. Run the Supabase setup script to create required tables:
-   ```bash
-   # Run the SQL in supabase-setup.sql in your Supabase SQL editor
-   ```
-
-6. Start the development server:
+5. Start the development server:
    ```bash
    pnpm dev
    ```
 
-7. Open [http://localhost:3000](http://localhost:3000)
+6. Open [http://localhost:3000](http://localhost:3000)
+
+7. Navigate to **Connection** in the sidebar to configure your Supabase credentials:
+   - Supabase URL
+   - Anon/Public Key
+   - Service Role Key
+
+8. (Optional) Run the Supabase setup script to create required tables:
+   ```bash
+   # Run the SQL in supabase-setup.sql in your Supabase SQL editor
+   ```
+
+### Configuration Options
+
+#### Environment Variables (`.env`)
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `ANTHROPIC_API_KEY` | Yes | Your Anthropic API key for Claude |
+| `SUPABASE_URL` | No* | Your Supabase project URL |
+| `SUPABASE_ANON_KEY` | No* | Your Supabase anon/public key |
+| `SUPABASE_SERVICE_KEY` | No* | Your Supabase service role key |
+
+*Supabase credentials can be configured via environment variables or through the in-app Connection settings page.
+
+#### In-App Configuration
+
+- **Connection Settings** (`/connection`) - Configure Supabase database credentials with a test connection feature
+- **Table Security** (`/settings`) - Set access levels (Full, Read-Only, None) for each table and hide sensitive columns
 
 ## Scripts
 

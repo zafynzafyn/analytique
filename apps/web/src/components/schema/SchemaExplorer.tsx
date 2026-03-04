@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import useSWR from 'swr';
 import {
   Database,
@@ -12,6 +13,7 @@ import {
   AlertCircle,
   ChevronRight,
   RefreshCw,
+  Settings,
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -96,21 +98,33 @@ export function SchemaExplorer() {
               <Database className="h-5 w-5" />
               <h2 className="font-semibold">Tables</h2>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8"
-              onClick={handleRefresh}
-              disabled={isRefreshing || tablesLoading}
-              title="Refresh tables"
-            >
-              <RefreshCw
-                className={cn(
-                  'h-4 w-4',
-                  (isRefreshing || tablesLoading) && 'animate-spin'
-                )}
-              />
-            </Button>
+            <div className="flex items-center gap-1">
+              <Link href="/connection">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8"
+                  title="Connection Settings"
+                >
+                  <Settings className="h-4 w-4" />
+                </Button>
+              </Link>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8"
+                onClick={handleRefresh}
+                disabled={isRefreshing || tablesLoading}
+                title="Refresh tables"
+              >
+                <RefreshCw
+                  className={cn(
+                    'h-4 w-4',
+                    (isRefreshing || tablesLoading) && 'animate-spin'
+                  )}
+                />
+              </Button>
+            </div>
           </div>
           <div className="relative">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -132,9 +146,15 @@ export function SchemaExplorer() {
           ) : tablesError || tablesData?.error ? (
             <div className="p-4 text-center">
               <AlertCircle className="h-8 w-8 text-destructive mx-auto mb-2" />
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground mb-3">
                 {tablesData?.error || 'Failed to load tables'}
               </p>
+              <Link href="/connection">
+                <Button variant="outline" size="sm" className="gap-2">
+                  <Settings className="h-4 w-4" />
+                  Configure Connection
+                </Button>
+              </Link>
             </div>
           ) : filteredTables.length === 0 ? (
             <div className="p-6 text-center text-muted-foreground text-sm">

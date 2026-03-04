@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Database, MessageSquare, Home, Sparkles, ChevronLeft, ChevronRight, Shield } from 'lucide-react';
+import { Database, MessageSquare, Home, Sparkles, ChevronLeft, ChevronRight, Shield, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { cn } from '@/lib/utils';
@@ -43,6 +43,7 @@ export default function DashboardLayout({
     { href: '/', icon: Home, label: 'Home' },
     { href: '/chat', icon: MessageSquare, label: 'Chat' },
     { href: '/schema', icon: Database, label: 'Schema' },
+    { href: '/connection', icon: Settings, label: 'Connection' },
     { href: '/settings', icon: Shield, label: 'Security' },
   ];
 
